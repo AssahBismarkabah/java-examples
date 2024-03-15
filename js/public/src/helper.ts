@@ -10,8 +10,7 @@ export function createArticleBloc(article: Article) {
     const title = document.createElement("h2");
 
     //title.textContent = article.title;
-    const truncatedTitle = article.title.length > 30 ? article.title.slice(0, 30) + "......" : article.title;
-    title.textContent = truncatedTitle;
+    title.textContent = article.title.length > 30 ? article.title.slice(0, 30) + "......" : article.title;
 
     const description = document.createElement("p");
     description.textContent = article.description;
