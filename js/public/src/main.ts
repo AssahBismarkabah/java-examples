@@ -1,3 +1,6 @@
+import './style.css';
+
+
 // API key from News API
 const apikey = '18222286e9ee4e7eb26045410f75f845';
 
@@ -13,19 +16,19 @@ const searchButton = document.getElementById('search-button');
 
 
 
-// Function to fetch random news incase the user visits the website for the fisrt time 
+// Function to fetch random news incase the user visits the website for the fisrt time
 
 async function fetchRandomNews() {
     try {
         const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey=${apikey}`;
 
-        //fetching data using  async await and api from url 
+        //fetching data using  async await and api from url
 
         const response = await fetch(apiUrl);
 
-        //storing respose  in json format  in the variable data 
+        //storing respose  in json format  in the variable data
         const data = await response.json();
-        
+
 
         return data.articles;
     } catch (error) {
@@ -37,10 +40,10 @@ async function fetchRandomNews() {
 
 
 
-//adding event listener for the button tag 
+//adding event listener for the button tag
 
 searchButton.addEventListener("click", async () => {
-    
+
     const query = searchField.value.trim()
 
     if (query != ""){
@@ -49,7 +52,7 @@ searchButton.addEventListener("click", async () => {
             const articles = await fetchNewsQuery(query)
 
             dispalyBlogs(articles)
-            
+
         }catch(error){
             console.log("Error fetching news by query",error)
         }
@@ -83,7 +86,7 @@ async function  fetchNewsQuery(query){
 
 function dispalyBlogs(articles) {
     blogContainer.innerHTML = "";
-    
+
     articles.forEach((article) => {
         const blogCard = document.createElement('div');
         blogCard.classList.add('blog-card');
@@ -104,7 +107,7 @@ function dispalyBlogs(articles) {
         blogCard.appendChild(title);
         blogCard.appendChild(description);
         blogCard.addEventListener("click", ()=>{
-            
+
             window.open(article.url,"_blank")
         });
 
