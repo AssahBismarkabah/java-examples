@@ -17,11 +17,11 @@
 
         <!-- specify the section for the input field with class search-container-->
 
-        <div class="search-container">
-
-            <input type="text" placeholder="Search News Here!" id="search-input">
-            <button id="search-button">Search</button>
-        </div>
+        <form id="search-form" class="search-container">
+            <label for="search-input" class="hidden">Search</label>
+            <input name="search" type="text" placeholder="Search News Here!" id="search-input">
+            <button type="submit" id="search-button">Search</button>
+        </form>
 
     </div>
 

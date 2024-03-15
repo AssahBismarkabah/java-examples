@@ -132,3 +132,7 @@ nav {
     }
 }
 
+
+.hidden {
+    display: none;
+}
