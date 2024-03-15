@@ -1,19 +1,25 @@
-import {Article} from "./type.ts";
+import {Article, ResponseArticle} from "./type.ts";
+import buildUrl from "build-url-ts";
+import axios from "axios";
 
 const apikey = '18222286e9ee4e7eb26045410f75f845';
 
 // Function to fetch random news in case the user visits the website for the first time
-export async function fetchRandomNews(pageSize = 20, country = 'us') {
+export async function fetchRandomNews(pageSize = 10, country = 'us') {
     try {
-        const apiUrl = `https://newsapi.org/v2/top-headlines?country=${country}&pageSize=${pageSize}&apiKey=${apikey}`;
+        const apiUrl = buildUrl('https://newsapi.org', {
+            path: '/v2/top-headlines',
+            queryParams: {
+                country: country,
+                pageSize: pageSize,
+                apikey: apikey,
+            }
+        });
 
         // fetching data using  async await and api from url
-        const response = await fetch(apiUrl);
+        const response = await axios.get<ResponseArticle>(apiUrl!);
 
-        // storing respose  in json format  in the variable data
-        const data = await response.json();
-
-        return data.articles as Article[];
+        return response.data.articles as Article[];
     } catch (error) {
         console.error("Error fetching random news:", error);
         return [];
@@ -21,15 +27,19 @@ export async function fetchRandomNews(pageSize = 20, country = 'us') {
 }
 
 // Function to fetch the data rom the below URL
-export async function fetchNewsQuery(query: string, pageSize = 20) {
+export async function fetchNewsQuery(query: string, pageSize = 10) {
     try {
-        const encodedQuery = encodeURIComponent(query);
-        const apiUrl = `https://newsapi.org/v2/everything?q=${encodedQuery}&pageSize=${pageSize}&apiKey=${apikey}`;
+        const apiUrl = buildUrl('https://newsapi.org', {
+            path: '/v2/everything',
+            queryParams: {
+                q: query,
+                pageSize: pageSize,
+                apikey: apikey,
+            }
+        });
 
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        return data.articles as Article[];
+        const response = await axios.get(apiUrl!);
+        return response.data.articles as Article[];
     } catch (error) {
         console.error("Error fetching random news:", error);
         return [];

@@ -4,3 +4,7 @@ export type Article = {
     description: string;
     url: string;
 }
+
+export type ResponseArticle = {
+    articles: Article[];
+}

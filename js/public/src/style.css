@@ -72,6 +72,7 @@ nav {
 }
 
 .blog-card {
+    transition: ease-in-out 250ms;
     width: 280px;
     border: 1px solid #2d4c50;
     border-radius: 10px;
